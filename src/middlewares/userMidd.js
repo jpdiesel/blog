@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-const nameError = '"displayName" must be at least 8 characters long';
+const nameError = '"displayName" length must be at least 8 characters long';
 const emailError = '"email" must be a valid email';
 const noEmail = '"email" is required';
 const passwordError = '"password" length must be 6 characters long';
@@ -24,7 +24,7 @@ const emailValidation = (req, res, next) => {
 
 const passwordValidation = (req, res, next) => {
   const requistion = req.body;
-  if (requistion.password.lengt !== 6) return res.status(400).json({ message: passwordError });
+  if (requistion.password.length !== 6) return res.status(400).json({ message: passwordError });
   if (!requistion.password) return res.status(400).json({ message: noPassword });
   next();
 };
