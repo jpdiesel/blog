@@ -3,7 +3,6 @@ const User = require('../services/user');
 // require('dotenv').config();
 
 const createUserController = async (req, res) => {
-  console.log(req.body);
   try {
     const data = await User.createUser(req.body);
     if (data.message) return data.message;
@@ -18,6 +17,16 @@ const createUserController = async (req, res) => {
   }
 };
 
+const listAllUsers = async (req, res) => {
+  try {
+    const data = await User.getAllUsers();
+    res.status(200).json(data);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   createUserController,
+  listAllUsers,
 };

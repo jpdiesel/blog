@@ -1,3 +1,7 @@
+const jwt = require('jsonwebtoken');
+
+require('dotenv').config();
+
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const nameError = '"displayName" must be at least 8 characters long';
 const emailError = '"email" must be a valid email';
@@ -25,8 +29,23 @@ const passwordValidation = (req, res, next) => {
   next();
 };
 
+const tokenValidation = async (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization) return res.status(401).json({ message: 'Token not found' });
+  try {
+    jwt.verify(authorization, process.env.JWT_SECRET);
+  } catch (err) {
+    if (err) return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+  
+  // linha 36 feita com a ajuda do link a seguir:
+  // https://github.com/auth0/node-jsonwebtoken
+  next();
+};
+
 module.exports = {
   nameValidation,
   emailValidation,
   passwordValidation,
+  tokenValidation,
 };
