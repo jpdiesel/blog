@@ -3,12 +3,11 @@ const express = require('express');
 const routes = express.Router();
 
 const { loginController } = require('../controllers/login');
-// const { nameValidation, emailValidation, passwordValidation } = require('../middlewares/userMidd');
+const { emailValidation, passwordValidation } = require('../middlewares/loginMidd');
 
 routes.post('/',
-// nameValidation,
-// emailValidation,
-// passwordValidation, 
+emailValidation,
+passwordValidation, 
 loginController);
 
 module.exports = routes;
