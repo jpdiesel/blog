@@ -9,8 +9,10 @@ const login = require('./src/routes/login');
 const categories = require('./src/routes/categories');
 const blogPosts = require('./src/routes/blogPosts');
 
+require('dotenv').config();
+
 // não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (request, response) => {
+app.get('/', (_request, response) => {
   response.send();
 });
 

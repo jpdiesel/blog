@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const Category = require('../models/categories');
+const Category = require('../../models/categories');
 
 require('dotenv').config();
 

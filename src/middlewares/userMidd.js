@@ -17,15 +17,15 @@ const nameValidation = (req, res, next) => {
 
 const emailValidation = (req, res, next) => {
   const requistion = req.body;
-  if (EMAIL_REGEX.test(requistion.email)) return res.status(400).json({ message: emailError });
   if (!requistion.email) return res.status(400).json({ message: noEmail });
+  if (!EMAIL_REGEX.test(requistion.email)) return res.status(400).json({ message: emailError });
   next();
 };
 
 const passwordValidation = (req, res, next) => {
   const requistion = req.body;
-  if (requistion.password.length !== 6) return res.status(400).json({ message: passwordError });
   if (!requistion.password) return res.status(400).json({ message: noPassword });
+  if (requistion.password.length !== 6) return res.status(400).json({ message: passwordError });
   next();
 };
 

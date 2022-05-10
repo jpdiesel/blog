@@ -8,7 +8,8 @@ const emptyPassword = '"password" is not allowed to be empty';
 
 const emailValidation = (req, res, next) => {
   const requistion = req.body;
-  if (EMAIL_REGEX.test(requistion.email)) return res.status(400).json({ message: emailError });
+  console.log(req.body, 'emailValidation');
+  if (!EMAIL_REGEX.test(requistion.email)) return res.status(400).json({ message: emailError });
   if (requistion.email === null) return res.status(400).json({ message: emptyEmail });
   if (!requistion.email) return res.status(400).json({ message: noEmail });
   next();
@@ -16,7 +17,8 @@ const emailValidation = (req, res, next) => {
 
 const passwordValidation = (req, res, next) => {
   const requistion = req.body;
-  if (requistion.password.lengt !== 6) return res.status(400).json({ message: passwordError });
+  console.log(req.body, 'passwordValidation');
+  if (requistion.password.length !== 6) return res.status(400).json({ message: passwordError });
   if (requistion.password === null) return res.status(400).json({ message: emptyPassword });
   if (!requistion.password) return res.status(400).json({ message: noPassword });
   next();

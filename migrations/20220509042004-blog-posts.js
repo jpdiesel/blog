@@ -23,12 +23,12 @@ module.exports = {
         reference: { model: 'User', key: 'id' }
       },
       published: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updated: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },

@@ -1,23 +1,23 @@
 const jwt = require('jsonwebtoken');
 const User = require('../services/user');
-// require('dotenv').config();
+require('dotenv').config();
 
 const createUserController = async (req, res) => {
   try {
     const data = await User.createUser(req.body);
-    if (data.message) return data.message;
+    if (data.message) return res.status(409).json({ message: data.message });
     const jwtConfig = {
       expiresIn: '1d',
       algorithm: 'HS256',
     };
     const token = jwt.sign({ data }, process.env.JWT_SECRET, jwtConfig);
-    res.status(201).json(token);
+    res.status(201).json({ token });
   } catch (e) {
     console.log(e);
   }
 };
 
-const listAllUsers = async (req, res) => {
+const listAllUsers = async (_req, res) => {
   try {
     const data = await User.getAllUsers();
     res.status(200).json(data);

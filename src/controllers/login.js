@@ -12,7 +12,7 @@ const loginController = async (req, res) => {
       algorithm: 'HS256',
     };
     const token = jwt.sign({ data }, process.env.JWT_SECRET, jwtConfig);
-    res.status(201).json(token);
+    res.status(201).json({ token });
   } catch (e) {
     console.log(e);
   }
