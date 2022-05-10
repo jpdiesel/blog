@@ -9,6 +9,16 @@ const createPostController = async (req, res) => {
   }
 };
 
+const getAllController = async (req, res) => {
+  try {
+    const post = await BlogPost.getAllBlogPosts();
+    return res.status(200).json(post);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   createPostController,
+  getAllController,
 };

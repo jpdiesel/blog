@@ -2,12 +2,16 @@ const express = require('express');
 
 const routes = express.Router();
 
-const { createPostController } = require('../controllers/blogPosts');
+const { createPostController, getAllController } = require('../controllers/blogPosts');
 const { postValidation, tokenValidation } = require('../middlewares/blogPostsMidd');
 
 routes.post('/',
 postValidation,
 tokenValidation,
 createPostController);
+
+routes.get('/',
+getAllController,
+tokenValidation);
 
 module.exports = routes;
