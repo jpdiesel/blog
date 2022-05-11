@@ -3,6 +3,8 @@ const shell = require('shelljs');
 
 const url = 'http://localhost:3000';
 
+jest.setTimeout(30000);
+
 describe('2 - Sua aplicação deve ter o endpoint POST `/login`', () => {
   beforeEach(async () => {
     shell.exec('npx sequelize-cli db:drop');

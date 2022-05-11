@@ -9,10 +9,10 @@ const {
 const { nameValidation, tokenValidation } = require('../middlewares/categoriesMidd');
 
 routes.post('/',
-createCategoryController,
 nameValidation,
-tokenValidation);
+tokenValidation,
+createCategoryController);
 
-routes.get('/', getAllCategoriesController, tokenValidation);
+routes.get('/', tokenValidation, getAllCategoriesController);
 
 module.exports = routes;

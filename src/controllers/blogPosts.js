@@ -1,7 +1,11 @@
+const jwt = require('jsonwebtoken');
 const BlogPost = require('../services/blogPosts');
 
 const createPostController = async (req, res) => {
   try {
+    const { authorization } = req.header;
+    const bla = jwt.verify(authorization, process.env.JWT_SECRET);
+    console.log(bla);
     const post = await BlogPost.createPost(req.body);
     return res.status(201).json(post);
   } catch (e) {

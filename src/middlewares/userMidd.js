@@ -30,12 +30,13 @@ const passwordValidation = (req, res, next) => {
 };
 
 const tokenValidation = async (req, res, next) => {
+  console.log('entrou');
   const { authorization } = req.headers;
   if (!authorization) return res.status(401).json({ message: 'Token not found' });
   try {
     jwt.verify(authorization, process.env.JWT_SECRET);
   } catch (err) {
-    if (err) return res.status(401).json({ message: 'Expired or invalid token' });
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
   
   // linha 36 feita com a ajuda do link a seguir:

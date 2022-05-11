@@ -11,7 +11,7 @@ tokenValidation,
 createPostController);
 
 routes.get('/',
-getAllController,
-tokenValidation);
+tokenValidation,
+getAllController);
 
 module.exports = routes;

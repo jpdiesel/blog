@@ -16,8 +16,8 @@ emailValidation,
 passwordValidation, 
 createUserController);
 
-routes.get('/', listAllUsers, tokenValidation);
+routes.get('/', tokenValidation, listAllUsers);
 
-routes.get('/id', listUserById, tokenValidation);
+routes.get('/:id', tokenValidation, listUserById);
 
 module.exports = routes;
