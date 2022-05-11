@@ -10,14 +10,14 @@ const {
 } = require('../controllers/blogPosts');
 
 const { 
-  postValidation,
   tokenValidation,
+  postValidation,
   userValidation,
 } = require('../middlewares/blogPostsMidd');
 
 routes.post('/',
-postValidation,
 tokenValidation,
+postValidation,
 createPostController);
 
 routes.get('/',

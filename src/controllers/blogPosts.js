@@ -3,10 +3,10 @@ const BlogPost = require('../services/blogPosts');
 
 const createPostController = async (req, res) => {
   try {
-    const { authorization } = req.header;
-    const bla = jwt.verify(authorization, process.env.JWT_SECRET);
-    console.log(bla);
-    const post = await BlogPost.createPost(req.body);
+    const { authorization } = req.headers;
+    const userId = jwt.verify(authorization, process.env.JWT_SECRET).data.id;
+    // console.log('=================', req.body);
+    const post = await BlogPost.createPost(req.body, userId);
     return res.status(201).json(post);
   } catch (e) {
     console.error(e);

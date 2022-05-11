@@ -1,9 +1,9 @@
 const { BlogPost, PostsCategories, User, Category } = require('../../models');
 
-const createPost = async ({ title, content, categorysIds }) => {
-  const post = await BlogPost.create(title, content);
-
-  await Promise.all(categorysIds.map((id) => PostsCategories
+const createPost = async ({ title, content, categoryIds }, userId) => {
+  const post = await BlogPost.create({ title, content, userId });
+  // console.log('===================', post);
+  await Promise.all(categoryIds.map((id) => PostsCategories
   .create({ postId: post.id, categoryId: id })));
 
   return post;
