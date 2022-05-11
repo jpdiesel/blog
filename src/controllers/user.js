@@ -37,8 +37,20 @@ const listUserById = async (req, res) => {
   }
 };
 
+const destroyUser = async (req, res) => {
+  const { authorization } = req.headers;
+  const userId = jwt.verify(authorization, process.env.JWT_SECRET).data.id;
+  try {
+    await User.deleteUser(userId);
+    return res.status(204).end();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   createUserController,
   listAllUsers,
   listUserById,
+  destroyUser,
 };
