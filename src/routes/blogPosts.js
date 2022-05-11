@@ -6,8 +6,14 @@ const {
   createPostController,
   getAllController,
   getPostByIdController,
+  deletePostController,
 } = require('../controllers/blogPosts');
-const { postValidation, tokenValidation } = require('../middlewares/blogPostsMidd');
+
+const { 
+  postValidation,
+  tokenValidation,
+  userValidation,
+} = require('../middlewares/blogPostsMidd');
 
 routes.post('/',
 postValidation,
@@ -21,5 +27,10 @@ getAllController);
 routes.get('/:id',
 tokenValidation,
 getPostByIdController);
+
+routes.delete('/:id',
+tokenValidation,
+userValidation,
+deletePostController);
 
 module.exports = routes;

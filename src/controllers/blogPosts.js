@@ -33,8 +33,19 @@ const getPostByIdController = async (req, res) => {
   }
 };
 
+const deletePostController = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await BlogPost.deletePost(id);
+    return res.status(204).end();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   createPostController,
   getAllController,
   getPostByIdController,
+  deletePostController,
 };

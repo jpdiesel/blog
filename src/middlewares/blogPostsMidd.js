@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const Category = require('../services/categories');
+const Post = require('../services/blogPosts');
 
 require('dotenv').config();
 
@@ -29,7 +30,20 @@ const tokenValidation = async (req, res, next) => {
   next();
 };
 
+const userValidation = async (req, res, next) => {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  const loggedUserId = jwt.decode(authorization).data.id;
+  const post = await Post.getPostById(id);
+  if (!post) return res.status(404).json({ message: 'Post does not exist' });
+  const json = JSON.stringify(post);
+  const postCreatorId = JSON.parse(json).userId;
+  if (loggedUserId !== postCreatorId) return res.status(401).json({ message: 'Unauthorized user' });
+  next();
+};
+
 module.exports = {
   tokenValidation,
   postValidation,
+  userValidation,
 };
