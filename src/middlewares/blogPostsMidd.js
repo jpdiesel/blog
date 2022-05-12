@@ -43,8 +43,23 @@ const userValidation = async (req, res, next) => {
   next();
 };
 
+const updatePostValidation = async (req, res, next) => {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  const { categoryIds, title, content } = req.body;
+  const loggedUserId = jwt.decode(authorization).data.id;
+  const getPost = JSON.stringify(await Post.getPostById(id));
+  const postCreatorId = JSON.parse(getPost).userId;
+  if (categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
+  if (loggedUserId !== postCreatorId) return res.status(401).json({ message: 'Unauthorized user' });
+  if (!title) return res.status(400).json({ message: '"title" is required' });
+  if (!content) return res.status(400).json({ message: '"content" is required' });
+  next();
+};
+
 module.exports = {
   tokenValidation,
   postValidation,
   userValidation,
+  updatePostValidation,
 };

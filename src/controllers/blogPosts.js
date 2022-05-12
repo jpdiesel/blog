@@ -5,7 +5,6 @@ const createPostController = async (req, res) => {
   try {
     const { authorization } = req.headers;
     const userId = jwt.verify(authorization, process.env.JWT_SECRET).data.id;
-    // console.log('=================', req.body);
     const post = await BlogPost.createPost(req.body, userId);
     return res.status(201).json(post);
   } catch (e) {
@@ -43,9 +42,21 @@ const deletePostController = async (req, res) => {
   }
 };
 
+const updatePostController = async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  try {
+    const updatedPost = await BlogPost.updatePost(title, content, id);
+    return res.status(200).json(updatedPost);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   createPostController,
   getAllController,
   getPostByIdController,
   deletePostController,
+  updatePostController,
 };

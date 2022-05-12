@@ -7,12 +7,14 @@ const {
   getAllController,
   getPostByIdController,
   deletePostController,
+  updatePostController,
 } = require('../controllers/blogPosts');
 
 const { 
   tokenValidation,
   postValidation,
   userValidation,
+  updatePostValidation,
 } = require('../middlewares/blogPostsMidd');
 
 routes.post('/',
@@ -32,5 +34,10 @@ routes.delete('/:id',
 tokenValidation,
 userValidation,
 deletePostController);
+
+routes.put('/:id',
+tokenValidation,
+updatePostValidation,
+updatePostController);
 
 module.exports = routes;
